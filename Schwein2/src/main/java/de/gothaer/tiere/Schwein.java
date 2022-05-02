@@ -2,6 +2,7 @@ package de.gothaer.tiere;
 
 public class Schwein {
 
+    public final static int START_GEWICHT = 10;
     private String name;
     private int gewicht;
 
@@ -11,7 +12,7 @@ public class Schwein {
 
     public Schwein(String name) {
         setName(name);
-        setGewicht(10);
+        setGewicht(START_GEWICHT);
     }
 
     public String getName() {
