@@ -13,7 +13,7 @@ public class PersonenServiceImpl {
     }
 
     /*
-        parameter ist null -> PSE
+        parameter ist null -> PSE OK
 
         vorname == null -> PSE
         vorname kürzer 2 Zeichen -> PSE
@@ -29,7 +29,8 @@ public class PersonenServiceImpl {
 
      */
     public void speichern(Person person) throws PersoneServiceException{
-
+        if(person == null)
+            throw new PersoneServiceException("Person darf nicht null");
 
     }
 }

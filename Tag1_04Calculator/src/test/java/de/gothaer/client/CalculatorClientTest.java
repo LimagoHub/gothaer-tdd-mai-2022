@@ -23,11 +23,15 @@ class CalculatorClientTest {
 
     @Test
     void run_test() {
+
+        // Arrange
         when(calculatorMock.add(anyDouble(),anyDouble())).thenReturn(4711.0);
         when(calculatorMock.add(eq(2.0),anyDouble())).thenThrow(new RuntimeException());
 
+        // Act
         objectUnderTest.run();
 
+        // Assertation
         verify(calculatorMock, times(1)).add(3.0,4.0);
     }
 
