@@ -1,5 +1,7 @@
 package de.gothaer.repositories.models;
 
+import java.util.Objects;
+
 public class Person {
 
     private String id;
@@ -48,5 +50,18 @@ public class Person {
         sb.append(", nachname='").append(nachname).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id.equals(person.id) && vorname.equals(person.vorname) && nachname.equals(person.nachname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, vorname, nachname);
     }
 }

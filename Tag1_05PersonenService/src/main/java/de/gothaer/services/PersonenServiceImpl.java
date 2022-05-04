@@ -3,6 +3,8 @@ package de.gothaer.services;
 import de.gothaer.repositories.PersonenRepository;
 import de.gothaer.repositories.models.Person;
 
+import java.util.UUID;
+
 public class PersonenServiceImpl {
 
     private final PersonenRepository repo;
@@ -13,7 +15,10 @@ public class PersonenServiceImpl {
         this.blacklistService = blacklistService;
     }
 
-
+    public void speichern(String vorname, String nachname) throws PersoneServiceException{
+        Person person = new Person(vorname, nachname);
+        speichern(person);
+    }
     /*
         parameter ist null -> PSE OK
 
@@ -33,7 +38,9 @@ public class PersonenServiceImpl {
     public void speichern(Person person) throws PersoneServiceException{
         try {
             checkPerson(person);
+            person.setId(UUID.randomUUID().toString());
             repo.create(person);
+
         } catch (RuntimeException e) {
             throw new PersoneServiceException("Ein Fehler ist aufgetreten",e);
         }
@@ -46,7 +53,7 @@ public class PersonenServiceImpl {
     }
 
     private void businessCheck(Person person) throws PersoneServiceException {
-        if(person.getVorname().equals("Attila"))
+        if(blacklistService.isPersonAntipath(person))
             throw new PersoneServiceException("Person ist ein Antipath");
     }
 
